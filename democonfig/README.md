@@ -1,20 +1,21 @@
-写作时间：2018-12-22
+# SpringBoot2.1 | 第二篇：Spring Boot配置文件详解
+写作时间：2018-12-22 <br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA,
 # 配置文件说明
-**Spring Boot** 配置文件允许为同一套应用，为不同的环境用不同的配置文件。比如开发环境、测试环境、生成环境。你可以用**properties**文件, **YAML**文件, **环境变量**, 和**命令行参数**去定制配置文件. 属性可以通过注解**@Value**注入内容，结构化对象可以通过注解**@ConfigurationProperties** 注入内容。配置文件英文关键词： **Externalized Configuration**.
+**Spring Boot** 配置文件允许为同一套应用，为不同的环境用不同的配置文件。比如开发环境、测试环境、生成环境。你可以用 **properties** 文件, **YAML** 文件,  **环境变量** , 和 **命令行参数** 去定制配置文件. 属性可以通过注解 **@Value** 注入内容，结构化对象可以通过注解 **@ConfigurationProperties**  注入内容。配置文件英文关键词： **Externalized Configuration** .
 
 **Spring Boot** 配置文件加载优先级如下:
 1. **Devtools**全局设置属性在路径 (~/.spring-boot-devtools.properties 当devtools激活的时候).
-2. 注解**@TestPropertySource** 在单元测试中.
-3. 属性在单元测试中，用注解**@SpringBootTest**测试应用的调用方法.
+2. 注解 **@TestPropertySource** 在单元测试中.
+3. 属性在单元测试中，用注解 **@SpringBootTest**测试应用的调用方法.
 4. 命令行参数.
 5. 属性配置在**SPRING_APPLICATION_JSON** (JSON 内置在环境变量或者系统属性).
 6. **ServletConfig**初始化参数.
 7. **ServletContext** 初始化参数.
 8. **JNDI**（Java Naming and Directory Interface） 属性配置在 java:comp/env.
-9. Java系统属性 (**System.getProperties()**).
+9. Java系统属性 ( **System.getProperties()** ).
 10. OS（Operating System）环境变量.
-11. **RandomValuePropertySource** 中的属性只包括在包random.*.
+11. **RandomValuePropertySource** 中的属性只包括在包 `random.*` .
 12. [Profile-specific application properties](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-profile-specific-properties) 配置文件在packaged jar之外 (application-{profile}.properties 和 YAML ).
 13. [Profile-specific application properties](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-profile-specific-properties)配置文件在packaged jar之内 (application-{profile}.properties 和 YAML).
 14. 应用属性在packaged jar之外 (application.properties 和 YAML).
@@ -22,7 +23,7 @@ Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA,
 16. 注解 @Configuration修饰的类，里用注解**@PropertySource**  .
 17. 默认属性 (配置在文件 SpringApplication.setDefaultProperties).
 
-本章记录最常用的配置文件application.properties 和 YAML。
+本章记录最常用的配置文件 **application.properties** 和 **YAML**。
 
 # 配置文件位置读取优先级
 `application.properties` 或者 `application.yml` 读取优先级如下:
@@ -121,7 +122,7 @@ zgpeace: 18
 ```
 
 # 将配置文件的属性赋给实体类
-配置文件的字段可以赋值给JavaBean, 结构化对象可以通过注解**@ConfigurationProperties** 注入内容，创建类`com.zgpeace.democonfig.bean.ConfigBean`, 实现如下：
+配置文件的字段可以赋值给JavaBean, 结构化对象可以通过注解 **@ConfigurationProperties** 注入内容，创建类`com.zgpeace.democonfig.bean.ConfigBean`, 实现如下：
 ```java
 package com.zgpeace.democonfig.bean;
 
@@ -318,3 +319,4 @@ https://github.com/zgpeace/Spring-Boot2.1/tree/master/democonfig
 # 参考
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
 https://blog.csdn.net/forezp/article/details/70437576
+
