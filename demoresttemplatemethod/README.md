@@ -8,7 +8,7 @@ Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA,
 在讲述使用之前，想要理解SpringMVC的几个常用注解：
 
 1. @Controller：修饰class，用来创建处理http请求的对象
-2. @RestController：Spring4之后加入的注解，原来在@Controller中返回json需3. 要@ResponseBody来配合，如果直接用@RestController替代@Controller就不需要再配置@ResponseBody，默认返回json格式。
+2. @RestController：Spring4之后加入的注解，原来在@Controller中返回json需要@ResponseBody来配合，如果直接用@RestController替代@Controller就不需要再配置@ResponseBody，默认返回json格式。
 3. @RequestMapping：配置url映射
 4. @PostMapping: 这个是@RequestMapping+POST方法的简写
 5. @RequestHeader: 请求Header参数
