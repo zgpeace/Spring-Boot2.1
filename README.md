@@ -15,7 +15,11 @@
 
 
 
+如果文章对您有所帮助，帮忙顺手STAR.
+赠人玫瑰🌹，收留余香。谢谢！
+
 [001]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demo1boot
 [002]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/democonfig
 [003]: https://github.com/zgpeace/Spring-Boot2.1/blob/master/demoresttemplatehttp
 [004]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoresttemplatemethod
+
