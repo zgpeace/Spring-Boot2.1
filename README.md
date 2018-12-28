@@ -12,7 +12,7 @@
 | 2    | [第二篇：Spring Boot配置文件详解][002] |                         |
 | 3    | [第三篇：RestTemplate请求HTTP(1)][003] |                         |
 | 4    | [第四篇：RestTemplate请求HTTP(2)][004] |                         |
-
+| 5    | [第五篇：RestTemplate请求https(3)][005] |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.
@@ -22,4 +22,4 @@
 [002]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/democonfig
 [003]: https://github.com/zgpeace/Spring-Boot2.1/blob/master/demoresttemplatehttp
 [004]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoresttemplatemethod
-
+[005]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoresttemplatehttps
