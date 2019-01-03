@@ -13,7 +13,7 @@
 | 3    | [第三篇：RestTemplate请求HTTP(1)][003] |                         |
 | 4    | [第四篇：RestTemplate方法详解(2)][004] |                         |
 | 5    | [第五篇：RestTemplate请求https(3)][005] |                         |
-
+| 5    | [第六篇：JdbcTemplate访问MySQL][006] |                         |
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
 赠人玫瑰🌹，手留余香。谢谢！
@@ -23,3 +23,4 @@
 [003]: https://github.com/zgpeace/Spring-Boot2.1/blob/master/demoresttemplatehttp
 [004]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoresttemplatemethod
 [005]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoresttemplatehttps
+[006]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojdbctemplate
