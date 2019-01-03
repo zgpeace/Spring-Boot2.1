@@ -220,6 +220,11 @@ public class DemojdbctemplateApplication implements CommandLineRunner {
     }
 }
 ```
+实现功能解说：<br>
+1)注入jdbcTemplate对象<br>
+2)创建表customers<br>
+3)插入数据<br>
+4)查询满足条件`firstName='Josh'`的记录<br>
 
 3. 运行工程, 控制台打印信息如下：
 ```shell
