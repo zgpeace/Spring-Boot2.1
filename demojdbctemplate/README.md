@@ -244,10 +244,10 @@ public class DemojdbctemplateApplication implements CommandLineRunner {
 恭喜你！实现了JdbcTemplate访问MySQL。 企业项目一般会用Mybatis或者JPA操作数据库，所以这里只要会用JdbcTemplate就好。
 
 代码下载：
-https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojdbctemplate
+https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojdbctemplate<br>
 
 参考：
-https://spring.io/guides/gs/relational-data-access/
-https://spring.io/guides/gs/accessing-data-mysql/
-https://blog.csdn.net/forezp/article/details/70477821
-https://www.jianshu.com/p/a8e4068a7a8a
+https://spring.io/guides/gs/relational-data-access/<br>
+https://spring.io/guides/gs/accessing-data-mysql/<br>
+https://blog.csdn.net/forezp/article/details/70477821<br>
+https://www.jianshu.com/p/a8e4068a7a8a<br>
