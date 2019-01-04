@@ -1,4 +1,4 @@
-# SpringBoot 2.1 | 第一篇：构建第一个SpringBoot工程
+# 易筋SpringBoot 2.1 | 第一篇：构建第一个SpringBoot工程
 
 写作时间：2018-12-20
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA, 

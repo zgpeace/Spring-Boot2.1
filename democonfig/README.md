@@ -1,4 +1,4 @@
-# SpringBoot2.1 | 第二篇：Spring Boot配置文件详解
+# 易筋SpringBoot2.1 | 第二篇：Spring Boot配置文件详解
 写作时间：2018-12-22 <br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA,
 # 配置文件说明
