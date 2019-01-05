@@ -1,5 +1,5 @@
 # 易筋SpringBoot 2.1 | 第七篇：JPA访问MySQL
-写作时间：2019-01-04 <br>
+写作时间：2019-01-04<br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA, MySQL 8.0.13
 # JPA说明
 对数据的操作无非CRUD(增加查询修改删除)，每次写的SQL都类似，是否可以交由框架处理。JPA就是为释放程序员不用谢CRUD而出来的规范。2006年5月11号，JPA 1.0 规范作为 JCP JSR 220 的一部分最终被发布。
@@ -353,6 +353,92 @@ public class CustomerController {
 上面代码用Postman全部测试通过，[Postman用法可点击链接](https://blog.csdn.net/zgpeace/article/details/84571205)。
 获取全部数据截图：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190104124402651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pncGVhY2U=,size_16,color_FFFFFF,t_70)
+
+# 分页、排序查询
+实际项目中经常用到分页、排序查询，spring data jpa已经帮我们实现了分页的功能，在查询的方法中，需要传入参数`Pageable` ,当查询中有多个参数的时候Pageable建议做为最后一个参数传入。
+
+**Service类`com.zgpeace.demojpa.service.CustomerService`**
+```java
+
+    public List<Customer> getCustomersByPage(Pageable pageable) {
+        return (List<Customer>) customerRepository.findAll(pageable).getContent();
+    }
+```
+代码解析：
+`findAll(Pageable)` 返回的是`Page<T>`对象，需要`.getContent()`获取`List<T>`
+
+**Controller类`com.zgpeace.demojpa.web.CustomerController`**
+```java
+@RequestMapping(value = "/listPageable", method = RequestMethod.GET)
+    public List<Customer> getCustomersByPage() {
+        int page = 0, size =3;
+        Sort sort = new Sort(Sort.Direction.DESC, "lastName");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return customerService.getCustomersByPage(pageable);
+    }
+```
+头文件为
+```java
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+```
+
+代码解析：
+1. 根据lastName倒序排序
+2. 每页3条记录，获取第一页的数据。
+
+**命令行测试：**
+```shell
+$ curl http://localhost:8080/customer/listPageable
+[{"id":4,"firstName":"David","lastName":"Palmer"},
+{"id":2,"firstName":"Chloe","lastName":"O'Brian"},
+{"id":5,"firstName":"Michelle","lastName":"Dessler"}]
+```
+
+# 自定义SQL查询
+有的需求比较复杂，需要写SQL，spring data也是完美支持的；在SQL的查询方法上面使用@Query注解，如涉及到删除和修改在需要加上@Modifying.也可以根据需要添加 @Transactional 对事物的支持，查询超时的设置等
+
+**Dao添加`com.zgpeace.demojpa.dao.CustomerRepository`**
+```java
+@Transactional(timeout = 10)
+    @Modifying
+    @Query("delete from Customer where id = ?1")
+    void deleteCustomerWithSqlByUserId(Long id);
+```
+头文件
+```java
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+```
+
+**Service添加`com.zgpeace.demojpa.service.CustomerService`**
+```java
+public void deleteCustomerWithSqlByUserId(long id) {
+        customerRepository.deleteCustomerWithSqlByUserId(id);
+    }
+```
+
+**Controller添加`com.zgpeace.demojpa.web.CustomerController`**
+```java
+@RequestMapping(value = "/sql/{id}", method = RequestMethod.DELETE)
+    public String deleteCustomerWithSqlById(@PathVariable("id") long id) {
+        customerService.deleteCustomerWithSqlByUserId(id);
+        return "finish sql delete, Please check whether is success";
+    }
+```
+**命令行测试**
+删除id为2的记录
+```shell
+$ curl --request DELETE \
+  --url 'http://localhost:8080/customer/sql/2'              
+finish sql delete, Please check whether is success%   
+```
+查询id为2的记录为空，验证通过
+```shell
+$ curl http://localhost:8080/customer/2  
+```
 
 # 总结
 代码下载：
