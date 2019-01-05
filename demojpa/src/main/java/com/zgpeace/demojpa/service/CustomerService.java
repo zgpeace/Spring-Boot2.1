@@ -3,6 +3,7 @@ package com.zgpeace.demojpa.service;
 import com.zgpeace.demojpa.bean.Customer;
 import com.zgpeace.demojpa.dao.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,10 @@ public class CustomerService {
 
     public List<Customer> getCustomers() {
         return (List<Customer>) customerRepository.findAll();
+    }
+
+    public List<Customer> getCustomersByPage(Pageable pageable) {
+        return (List<Customer>) customerRepository.findAll(pageable).getContent();
     }
 
     public Customer getCustomerById(long id) {
@@ -33,5 +38,8 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
+    public void deleteCustomerWithSqlByUserId(long id) {
+        customerRepository.deleteCustomerWithSqlByUserId(id);
+    }
 
 }
