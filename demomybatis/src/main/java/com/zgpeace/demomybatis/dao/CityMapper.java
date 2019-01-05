@@ -12,6 +12,12 @@ public interface CityMapper {
     City findByState(String state);
 
     @Select("SELECT id, name, state, country FROM city WHERE id = #{id}")
+    @Results({
+            @Result(property = "id",  column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "state",  column = "state"),
+            @Result(property = "country", column = "country"),
+    })
     City findById(@Param("id") int id);
 
     @Select("SELECT id, name, state, country FROM city")
