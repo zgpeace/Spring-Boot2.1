@@ -1,5 +1,5 @@
 # 易筋SpringBoot 2.1 | 第七篇：Mybatis访问MySQL
-写作时间：2019-01-05 <br>
+写作时间：2019-01-05<br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA, MySQL 8.0.13
 # 什么是 MyBatis ？
 MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。
@@ -146,6 +146,12 @@ public interface CityMapper {
     City findByState(String state);
 
     @Select("SELECT id, name, state, country FROM city WHERE id = #{id}")
+    @Results({
+            @Result(property = "id",  column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "state",  column = "state"),
+            @Result(property = "country", column = "country"),
+    })
     City findById(@Param("id") int id);
 
     @Select("SELECT id, name, state, country FROM city")
@@ -162,6 +168,24 @@ public interface CityMapper {
 
 }
 ```
+代码解析：
+>@Select 是查询类的注解，所有的查询均使用这个
+@Result 修饰返回的结果集，关联实体类属性和数据库字段一一对应，如果实体类属性和数据库属性名保持一致，就不需要这个属性来修饰。
+@Insert 插入数据库使用，直接传入实体类会自动解析属性到对应的值
+@Update 负责修改，也可以直接传入对象
+@delete 负责删除
+
+**注意，使用#符号和$符号的不同：**
+```java
+// This example creates a prepared statement, something like select * from city where name = ?;
+@Select("Select * from city where name = #{name}")
+City selectCityByName(@Param("name") String name);
+
+// This example creates n inlined statement, something like select * from city where name = 'someName';
+@Select("Select * from city where name = '${name}'")
+Teacher selectCityByName(@Param("name") String name);
+```
+[了解更多属性参考这里](http://www.mybatis.org/mybatis-3/zh/java-api.html)
 # Service 层
 新增类`com.zgpeace.demomybatis.service.CityService`
 ```java
@@ -295,4 +319,4 @@ https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start
 https://www.cnblogs.com/ityouknow/p/6037431.html
 https://blog.csdn.net/forezp/article/details/70768477
 http://www.mybatis.org/mybatis-3/zh/index.html
-
+http://www.mybatis.org/mybatis-3/zh/java-api.html
