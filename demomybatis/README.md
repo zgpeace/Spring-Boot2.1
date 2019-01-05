@@ -285,7 +285,7 @@ public class CityController {
 上面代码用Postman全部测试通过，[Postman用法可点击链接](https://blog.csdn.net/zgpeace/article/details/84571205)。
 
 # 总结
-恭喜你！学会了运用Mybatis操作数据库， 开始事务`@Transactional` 原子性操作。
+恭喜你！学会了运用Mybatis操作数据库， 开启事务`@Transactional` 原子性操作。
 
 代码下载：
 https://github.com/zgpeace/Spring-Boot2.1/tree/master/demomybatis
