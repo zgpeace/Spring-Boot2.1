@@ -1,0 +1,7 @@
+spring:
+  redis:
+    host: localhost #服务器地址
+    port: 6379      #服务器连接端口
+    database: 1     #数据库索引(默认为0)
+    password:       #服务器连接密码(默认为空)
+
