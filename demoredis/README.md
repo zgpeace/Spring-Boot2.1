@@ -1,4 +1,5 @@
-写作时间：2019-01-29
+# 易筋SpringBoot 2.1 | 第九篇：SpringBoot使用Redis内存数据库
+写作时间：2019-01-29 <br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA, MySQL 8.0.13
 # Redis 介绍
 Redis是目前业界使用最广泛的内存数据存储。相比memcached，Redis支持更丰富的数据结构，例如hashes, lists, sets等，同时支持数据持久化。除此之外，Redis还提供一些类数据库的特性，比如事务，HA，主从库。可以说Redis兼具了缓存系统和数据库的一些特性，因此有着丰富的应用场景。
@@ -202,6 +203,156 @@ MyUser  8821   0.0  0.0  2459704    596   ??  S    4:54PM   0:03.40 redis-server
 $ kill -9 8821
 ```
 
+# 操作对象
+Redis存储String类型，也可以存储对象，使用类似RedisTemplate<String, City>来初始化并进行操作。Spring Boot并不支持直接使用，需要自己实现RedisSerializer<T>接口来对传入对象进行序列化和反序列化，下面通过一个实例来完成对象的读写操作。
+
+## 修改pom.xml Redis的依赖
+Spring Boot 2.0中spring-boot-starter-data-redis默认使用Lettuce方式替代了Jedis。使用Jedis的话先排除掉Lettuce的依赖，然后手动引入Jedis的依赖。
+**pom.xml** 依赖项**spring-boot-starter-data-redis**修改
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+</dependency>
+        
+```
+
+## 创建Bean对象
+>对象需要在Redis中的语言跟Java语言之间转换，所以需要序列化
+>com.zgpeace.demoredis.bean.City
+```java
+package com.zgpeace.demoredis.bean;
+
+import java.io.Serializable;
+
+public class City implements Serializable {
+
+    private static final long serialVersionUID = -1L;
+
+    private String name;
+    private String state;
+    private String country;
+
+    public City(String name, String state, String country) {
+        this.name = name;
+        this.state = state;
+        this.country = country;
+    }
+
+    // getter setter ..
+}
+
+
+```
+## 通用对象序列化类
+> com.zgpeace.demoredis.dao.RedisObjedctSerializer
+```java
+package com.zgpeace.demoredis.dao;
+
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.serializer.support.DeserializingConverter;
+import org.springframework.core.serializer.support.SerializingConverter;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
+
+public class RedisObjedctSerializer implements RedisSerializer<Object> {
+
+    private Converter<Object, byte[]> serailizer = new SerializingConverter();
+    private Converter<byte[], Object> deserializer = new DeserializingConverter();
+
+    static final byte[] EMPTY_ARRAY = new byte[0];
+
+    @Override
+    public byte[] serialize(Object o) throws SerializationException {
+        if (o == null) {
+            return EMPTY_ARRAY;
+        }
+        try {
+            return serailizer.convert(o);
+        } catch (Exception ex) {
+            return EMPTY_ARRAY;
+        }
+    }
+
+    @Override
+    public Object deserialize(byte[] bytes) throws SerializationException {
+        if (isEmpty(bytes)) {
+            return null;
+        }
+
+        try {
+            return deserializer.convert(bytes);
+        } catch (Exception ex) {
+            throw new SerializationException("Connot deserialize", ex);
+        }
+    }
+
+    private boolean isEmpty(byte[] data) {
+        return (data == null || data.length == 0);
+    }
+}
+
+```
+
+## 配置针对City的RedisTemplate实例
+>com.zgpeace.demoredis.dao.CityRedisConfig
+```java
+package com.zgpeace.demoredis.dao;
+
+import com.zgpeace.demoredis.bean.City;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+@Configuration
+public class CityRedisConfig {
+
+    @Bean
+    RedisConnectionFactory jedisConnectionFactory() {
+        return new JedisConnectionFactory();
+    }
+
+    @Bean
+    public RedisTemplate<String, City> redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate<String, City> template = new RedisTemplate<String, City>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new RedisObjedctSerializer());
+        return template;
+    }
+}
+
+```
+## 添加新的测试用例
+>com.zgpeace.demoredis.DemoredisApplicationTests
+```java
+@Test
+    public void testRedisCity() throws Exception {
+        City city = new City("San Jose", "California", "America");
+        cityRedisTemplate.opsForValue().set(city.getName(), city);
+
+        city = new City("Vancouver", "British Columbi", "Canada");
+        cityRedisTemplate.opsForValue().set(city.getName(), city);
+
+        Assert.assertEquals("California", cityRedisTemplate.opsForValue().get("San Jose").getState());
+        Assert.assertEquals("Canada", cityRedisTemplate.opsForValue().get("Vancouver").getCountry());
+    }
+
+```
+
 # 总结
 恭喜你！学会了操作Redis。
 代码地址：https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoredis
@@ -213,3 +364,4 @@ https://blog.csdn.net/forezp/article/details/61471712
 https://spring.io/guides/gs/messaging-redis/
 https://www.cnblogs.com/ityouknow/p/5748830.html
 http://blog.didispace.com/springbootredis/
+https://www.concretepage.com/questions/599
