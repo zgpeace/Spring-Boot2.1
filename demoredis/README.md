@@ -326,9 +326,9 @@ public class CityRedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, City> redisTemplate(RedisConnectionFactory factory) {
+    public RedisTemplate<String, City> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
         RedisTemplate<String, City> template = new RedisTemplate<String, City>();
-        template.setConnectionFactory(jedisConnectionFactory());
+        template.setConnectionFactory(jedisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new RedisObjedctSerializer());
         return template;
@@ -353,8 +353,142 @@ public class CityRedisConfig {
 
 ```
 
+# 监听消息
+## 接收消息对象
+消息应用都有消息接收方，消息发送方。创建一个消息接收方，实现打印接收到的消息。
+>com.zgpeace.demoredis.bean.Receiver
+```java
+package com.zgpeace.demoredis.bean;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.concurrent.CountDownLatch;
+
+public class Receiver {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
+
+    private CountDownLatch latch;
+
+    @Autowired
+    public Receiver(CountDownLatch latch) {
+        this.latch = latch;
+    }
+
+    public void receiveMessage(String message) {
+        LOGGER.info("Received <" + message + ">");
+        latch.countDown();
+    }
+
+}
+
+```
+>消息接收对象是个POJO，定义一个方法去接收消息。一旦注册对象为监听消息，可以取任何方法的名字。`receiveMessage`
+## 注册一个监听者，并发送消息
+**Spring Data Redis** 提供了所有组件在Redis之间发送和接收消息，主要配置一下信息：
+1. 连接工厂connection factory
+2. 消息监听容器message listener container
+3. Redis template
+
+Redis template发送消息，注册的接收消息对象会接收消息。连接工厂驱动前面两者连接到Redis server。
+
+例子连接工厂用Spring Boot的RedisConnectionFactory，JedisConnectionFactory的一个实例。 连接工厂注入到消息监听对象和Redis template.
+>com.zgpeace.demoredis.DemoredisApplication
+
+```java
+package com.zgpeace.demoredis;
+
+import com.zgpeace.demoredis.bean.Receiver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+
+import java.util.concurrent.CountDownLatch;
+
+@SpringBootApplication
+public class DemoredisApplication {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(DemoredisApplication.class);
+
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+                                            MessageListenerAdapter listenerAdapter) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+
+        return container;
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage");
+    }
+
+    @Bean
+    Receiver receiver(CountDownLatch latch) {
+        return new Receiver(latch);
+    }
+
+    @Bean
+    CountDownLatch latch() {
+        return new CountDownLatch(1);
+    }
+
+    @Bean
+    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
+        return new StringRedisTemplate(connectionFactory);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        ApplicationContext ctx = SpringApplication.run(DemoredisApplication.class, args);
+
+        StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
+        CountDownLatch latch = ctx.getBean(CountDownLatch.class);
+
+        LOGGER.info("Sending message...");
+        template.convertAndSend("chat", "Hello from Redis!");
+
+        latch.await();
+
+        System.exit(0);
+
+    }
+
+}
+
+```
+Terminal启动Redis server
+```shell
+% redis-server
+
+```
+运行结果
+```shell
+2019-01-31 09:49:34.007  INFO 50210 --- [           main] c.z.demoredis.DemoredisApplication       : Started DemoredisApplication in 2.073 seconds (JVM running for 2.625)
+2019-01-31 09:49:34.008  INFO 50210 --- [           main] c.z.demoredis.DemoredisApplication       : Sending message...
+2019-01-31 09:49:34.020  INFO 50210 --- [    container-2] com.zgpeace.demoredis.bean.Receiver      : Received <Hello from Redis!>
+
+```
+程序解析：
+方法 `listenerAdapter` 注册为消息监听，并监听"chat" Topic. 因为接收方为POJO，所以需要 `addMessageListener` 把接收到的消息传递过去。 `listenerAdapter()` 实例配置去调用接收方方法 `receiveMessage()` 。
+
+连接工厂和连接容器使应用可以监听消息。用Redis template去发送消息，StringRedisTemplate是实现了RedisTemplate, 针对Redis中的keys和values都是String。
+
+`main()` 方法创建了**Spring application context**，context然后启动了监听容器。 **StringRedisTemplate** 在topic为"chat"发送消息"Hello from Redis!", 接收方打印消息。
 # 总结
-恭喜你！学会了操作Redis。
+恭喜你！学会了操作Redis字符串，对象，以及监听消息。
 代码地址：https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoredis
 
 # 参考
