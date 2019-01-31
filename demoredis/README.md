@@ -1,5 +1,5 @@
 # 易筋SpringBoot 2.1 | 第九篇：SpringBoot使用Redis内存数据库
-写作时间：2019-01-29 <br>
+写作时间：2019-01-29<br>
 Spring Boot: 2.1 ,JDK: 1.8, IDE: IntelliJ IDEA, MySQL 8.0.13
 # Redis 介绍
 Redis是目前业界使用最广泛的内存数据存储。相比memcached，Redis支持更丰富的数据结构，例如hashes, lists, sets等，同时支持数据持久化。除此之外，Redis还提供一些类数据库的特性，比如事务，HA，主从库。可以说Redis兼具了缓存系统和数据库的一些特性，因此有着丰富的应用场景。
@@ -462,7 +462,7 @@ public class DemoredisApplication {
 
         latch.await();
 
-        System.exit(0);
+        //System.exit(0);
 
     }
 
@@ -487,6 +487,82 @@ Terminal启动Redis server
 连接工厂和连接容器使应用可以监听消息。用Redis template去发送消息，StringRedisTemplate是实现了RedisTemplate, 针对Redis中的keys和values都是String。
 
 `main()` 方法创建了**Spring application context**，context然后启动了监听容器。 **StringRedisTemplate** 在topic为"chat"发送消息"Hello from Redis!", 接收方打印消息。
+
+# 分布式Session
+分布式系统中，sessiong共享有很多的解决方案，其中托管到缓存中应该是最常用的方案之一，
+
+Spring Session官方说明
+Spring Session provides an API and implementations for managing a user’s session information.
+## pom.xml引入依赖
+```xml
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+</dependency>
+
+```
+## Session配置类
+>com.zgpeace.demoredis.dao.SessionConfig
+```java
+package com.zgpeace.demoredis.dao;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
+@Configuration
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400*30)
+public class SessionConfig {
+}
+
+
+```
+maxInactiveIntervalInSeconds: 设置Session失效时间，使用Redis Session之后，原Boot的server.session.timeout属性不再生效
+## 测试方法
+>com.zgpeace.demoredis.web.SessionController
+```java
+package com.zgpeace.demoredis.web;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
+
+@RestController
+public class SessionController {
+
+    @RequestMapping(value = "/uid", method = RequestMethod.GET)
+    public String uid(HttpSession session){
+        UUID uid = (UUID)session.getAttribute("uid");
+        if (uid == null) {
+            uid = UUID.randomUUID();
+        }
+        session.setAttribute("uid", uid);
+        return session.getId();
+    }
+}
+
+```
+Terminal调用接口
+```shell
+% curl http://localhost:8080/uid
+f2b87954-2d97-4029-909f-636dfe584d9a%   
+
+```
+Terminal开启Redis client，查看生产的sessionId, 和过期时间
+```shell
+% redis-cli
+127.0.0.1:6379> keys '*sessions*'
+1) "spring:session:sessions:expires:f2b87954-2d97-4029-909f-636dfe584d9a"
+2) "spring:session:sessions:f2b87954-2d97-4029-909f-636dfe584d9a"
+
+```
+
+>如何在两台或者多台中共享session
+其实就是按照上面的步骤在另一个项目中再次配置一次，
+启动后自动就进行了session共享。
+
 # 总结
 恭喜你！学会了操作Redis字符串，对象，以及监听消息。
 代码地址：https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoredis
