@@ -62,7 +62,7 @@ public class DemoredisApplication {
 
         latch.await();
 
-        System.exit(0);
+        //System.exit(0);
 
     }
 
