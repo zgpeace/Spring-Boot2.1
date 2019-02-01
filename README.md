@@ -17,6 +17,7 @@
 | 7    | [第七篇：JPA访问MySQL][007] |                         |
 | 8    | [第八篇：Mybatis访问MySQL][008] |                         |
 | 9    | [第九篇：SpringBoot使用Redis内存数据库][009] |                         |
+| 10    | [第十篇：SpringBoot使用thymeleaf入门][009] |                         |
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
 赠人玫瑰🌹，手留余香。谢谢！
@@ -30,3 +31,4 @@
 [007]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojpa
 [008]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demomybatis
 [009]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoredis
+[010]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/thymeleaf
