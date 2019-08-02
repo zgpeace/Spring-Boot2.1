@@ -18,7 +18,7 @@
 | 8    | [第八篇：Mybatis访问MySQL][008] |                         |
 | 9    | [第九篇：SpringBoot使用Redis内存数据库][009] |                         |
 | 10    | [第十篇：SpringBoot使用thymeleaf入门][010] |                         |
-| 11    | [第十篇：SpringBoot使用actuator][011] |                         |
+| 11    | [第十一篇：SpringBoot使用actuator][011] |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
