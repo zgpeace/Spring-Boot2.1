@@ -20,6 +20,7 @@
 | 10    | [第十篇：SpringBoot使用thymeleaf入门][010] |                         |
 | 11    | [第十一篇：SpringBoot使用actuator][011] |                         |
 | 12    | [第十二篇：SpringBoot综合应用JDBC][012] |                         |
+| 13    | [第十三篇：SpringBoot综合应用多个DataSoure][013] |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -37,3 +38,4 @@
 [010]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/thymeleaf
 [011]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demoactuator
 [012]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojdbccompose
+[013]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demomultidatasource
