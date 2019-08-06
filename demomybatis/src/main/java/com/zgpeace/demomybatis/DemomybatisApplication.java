@@ -10,19 +10,19 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class DemomybatisApplication {
 
-    @Autowired
-    private CityMapper cityMapper;
+  @Autowired
+  private CityMapper cityMapper;
 
-    public static void main(String[] args) {
-        SpringApplication.run(DemomybatisApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(DemomybatisApplication.class, args);
+  }
 
-    @Bean
-    CommandLineRunner sampleCommandLineRunner() {
-        return (args) -> {
-            System.out.println(cityMapper.findByState("CA"));
-        };
-    }
+  @Bean
+  CommandLineRunner sampleCommandLineRunner() {
+    return (args) -> {
+      System.out.println(cityMapper.findByState("CA"));
+    };
+  }
 
 }
 

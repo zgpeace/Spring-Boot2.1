@@ -10,26 +10,26 @@ import java.util.List;
 @Service
 public class CityService {
 
-    @Autowired
-    private CityMapper cityMapper;
+  @Autowired
+  private CityMapper cityMapper;
 
-    public City findById(int id) {
-        return cityMapper.findById(id);
-    }
+  public City findById(int id) {
+    return cityMapper.findById(id);
+  }
 
-    public List<City> findCityList() {
-        return cityMapper.findCityList();
-    }
+  public List<City> findCityList() {
+    return cityMapper.findCityList();
+  }
 
-    public int add(String name, String state, String country) {
-        return cityMapper.add(name, state, country);
-    }
+  public int add(String name, String state, String country) {
+    return cityMapper.add(name, state, country);
+  }
 
-    public int update(String name, String state, String country, int id) {
-        return cityMapper.update(name, state, country, id);
-    }
+  public int update(String name, String state, String country, int id) {
+    return cityMapper.update(name, state, country, id);
+  }
 
-    public int delete(int id) {
-        return cityMapper.delete(id);
-    }
+  public int delete(int id) {
+    return cityMapper.delete(id);
+  }
 }

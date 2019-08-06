@@ -23,16 +23,16 @@ import java.security.NoSuchAlgorithmException;
 @Configuration
 public class RestTemplateConfig {
 
-    @Bean
-    public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        // unable to find valid certification path to requested target
+  @Bean
+  public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+    // unable to find valid certification path to requested target
         /*
         SSLContextBuilder builder = new SSLContextBuilder();
         builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
         SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(builder.build(), NoopHostnameVerifier.INSTANCE);
         */
 
-        // 401 Unauthorized
+    // 401 Unauthorized
         /*
         String host = "localhttps";
         int port = 23333;
@@ -45,17 +45,17 @@ public class RestTemplateConfig {
         */
 
 
-        CloseableHttpClient httpClient
-                = HttpClients.custom()
-                .setSSLHostnameVerifier(new NoopHostnameVerifier())
+    CloseableHttpClient httpClient
+        = HttpClients.custom()
+        .setSSLHostnameVerifier(new NoopHostnameVerifier())
 //                .setSSLSocketFactory(sslConnectionSocketFactory)
 //                .setDefaultCredentialsProvider(credsProvider)
-                .build();
-        HttpComponentsClientHttpRequestFactory requestFactory
-                = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(httpClient);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        .build();
+    HttpComponentsClientHttpRequestFactory requestFactory
+        = new HttpComponentsClientHttpRequestFactory();
+    requestFactory.setHttpClient(httpClient);
+    RestTemplate restTemplate = new RestTemplate(requestFactory);
 
-        return restTemplate;
-    }
+    return restTemplate;
+  }
 }

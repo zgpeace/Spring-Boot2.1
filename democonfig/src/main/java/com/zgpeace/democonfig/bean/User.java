@@ -9,22 +9,22 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "com.zgpeace")
 public class User {
 
-    private String hobby;
-    private String fruit;
+  private String hobby;
+  private String fruit;
 
-    public String getHobby() {
-        return hobby;
-    }
+  public String getHobby() {
+    return hobby;
+  }
 
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
-    }
+  public void setHobby(String hobby) {
+    this.hobby = hobby;
+  }
 
-    public String getFruit() {
-        return fruit;
-    }
+  public String getFruit() {
+    return fruit;
+  }
 
-    public void setFruit(String fruit) {
-        this.fruit = fruit;
-    }
+  public void setFruit(String fruit) {
+    this.fruit = fruit;
+  }
 }

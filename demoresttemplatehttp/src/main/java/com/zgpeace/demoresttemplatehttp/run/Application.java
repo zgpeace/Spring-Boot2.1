@@ -6,12 +6,12 @@ import org.springframework.web.client.RestTemplate;
 
 public class Application {
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+  private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String args[]) {
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", String.class);
-        log.info(result);
-    }
+  public static void main(String args[]) {
+    RestTemplate restTemplate = new RestTemplate();
+    String result = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", String.class);
+    log.info(result);
+  }
 
 }

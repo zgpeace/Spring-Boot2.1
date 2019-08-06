@@ -14,35 +14,35 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class DemoredisApplicationTests {
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+  @Autowired
+  private StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
-    private RedisTemplate<String, City> cityRedisTemplate;
+  @Autowired
+  private RedisTemplate<String, City> cityRedisTemplate;
 
-    @Test
-    public void test() throws Exception {
-        String key = "yourState";
-        String value = "passion";
-        stringRedisTemplate.opsForValue().set(key, value);
-        Assert.assertEquals("passion", stringRedisTemplate.opsForValue().get(key));
-    }
+  @Test
+  public void test() throws Exception {
+    String key = "yourState";
+    String value = "passion";
+    stringRedisTemplate.opsForValue().set(key, value);
+    Assert.assertEquals("passion", stringRedisTemplate.opsForValue().get(key));
+  }
 
-    @Test
-    public void testRedisCity() throws Exception {
-        City city = new City("San Jose", "California", "America");
-        cityRedisTemplate.opsForValue().set(city.getName(), city);
+  @Test
+  public void testRedisCity() throws Exception {
+    City city = new City("San Jose", "California", "America");
+    cityRedisTemplate.opsForValue().set(city.getName(), city);
 
-        city = new City("Vancouver", "British Columbi", "Canada");
-        cityRedisTemplate.opsForValue().set(city.getName(), city);
+    city = new City("Vancouver", "British Columbi", "Canada");
+    cityRedisTemplate.opsForValue().set(city.getName(), city);
 
-        Assert.assertEquals("California", cityRedisTemplate.opsForValue().get("San Jose").getState());
-        Assert.assertEquals("Canada", cityRedisTemplate.opsForValue().get("Vancouver").getCountry());
-    }
+    Assert.assertEquals("California", cityRedisTemplate.opsForValue().get("San Jose").getState());
+    Assert.assertEquals("Canada", cityRedisTemplate.opsForValue().get("Vancouver").getCountry());
+  }
 
-    @Test
-    public void contextLoads() {
-    }
+  @Test
+  public void contextLoads() {
+  }
 
 }
 

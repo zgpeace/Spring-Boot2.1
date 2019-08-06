@@ -12,29 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableConfigurationProperties({ConfigBean.class, User.class})
 public class MineController {
 
-    @Autowired
-    ConfigBean configBean;
-    @Autowired
-    User user;
+  @Autowired
+  ConfigBean configBean;
+  @Autowired
+  User user;
 
-    @Value("${account.name}")
-    private String name;
-    @Value("${account.age}")
-    private int age;
+  @Value("${account.name}")
+  private String name;
+  @Value("${account.age}")
+  private int age;
 
-    @RequestMapping(value = "/author")
-    public String mine() {
-        return name+ ": " + age;
-    }
+  @RequestMapping(value = "/author")
+  public String mine() {
+    return name + ": " + age;
+  }
 
-    @RequestMapping(value = "/lucy")
-    public String person() {
-        return configBean.getGreeting() + " >>>" + configBean.getName() + " >>>" +configBean.getUuid() + " >>>" + configBean.getMax();
-    }
-    @RequestMapping(value = "/user")
-    public String user() {
-        return "hobby: " + user.getHobby() + " ; fruit: " + user.getFruit();
-    }
+  @RequestMapping(value = "/lucy")
+  public String person() {
+    return configBean.getGreeting() + " >>>" + configBean.getName() + " >>>" + configBean.getUuid() + " >>>" + configBean.getMax();
+  }
+
+  @RequestMapping(value = "/user")
+  public String user() {
+    return "hobby: " + user.getHobby() + " ; fruit: " + user.getFruit();
+  }
 }
 
 

@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    List<Customer> findByLastName(String lastName);
+  List<Customer> findByLastName(String lastName);
 
-    @Transactional(timeout = 10)
-    @Modifying
-    @Query("delete from Customer where id = ?1")
-    void deleteCustomerWithSqlByUserId(Long id);
+  @Transactional(timeout = 10)
+  @Modifying
+  @Query("delete from Customer where id = ?1")
+  void deleteCustomerWithSqlByUserId(Long id);
 
 }

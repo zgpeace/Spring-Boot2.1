@@ -11,35 +11,35 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+  @Autowired
+  private CustomerRepository customerRepository;
 
-    public List<Customer> getCustomers() {
-        return (List<Customer>) customerRepository.findAll();
-    }
+  public List<Customer> getCustomers() {
+    return (List<Customer>) customerRepository.findAll();
+  }
 
-    public List<Customer> getCustomersByPage(Pageable pageable) {
-        return (List<Customer>) customerRepository.findAll(pageable).getContent();
-    }
+  public List<Customer> getCustomersByPage(Pageable pageable) {
+    return (List<Customer>) customerRepository.findAll(pageable).getContent();
+  }
 
-    public Customer getCustomerById(long id) {
-        return customerRepository.findById(id).orElse(null);
-    }
+  public Customer getCustomerById(long id) {
+    return customerRepository.findById(id).orElse(null);
+  }
 
-    public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
-    }
+  public Customer addCustomer(Customer customer) {
+    return customerRepository.save(customer);
+  }
 
-    public Customer updateCustomer(Customer customer) {
-        return customerRepository.saveAndFlush(customer);
-    }
+  public Customer updateCustomer(Customer customer) {
+    return customerRepository.saveAndFlush(customer);
+  }
 
-    public void deleteCustomerById(long id) {
-        customerRepository.deleteById(id);
-    }
+  public void deleteCustomerById(long id) {
+    customerRepository.deleteById(id);
+  }
 
-    public void deleteCustomerWithSqlByUserId(long id) {
-        customerRepository.deleteCustomerWithSqlByUserId(id);
-    }
+  public void deleteCustomerWithSqlByUserId(long id) {
+    customerRepository.deleteCustomerWithSqlByUserId(id);
+  }
 
 }

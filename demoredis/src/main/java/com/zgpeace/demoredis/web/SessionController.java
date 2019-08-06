@@ -10,13 +10,13 @@ import java.util.UUID;
 @RestController
 public class SessionController {
 
-    @RequestMapping(value = "/uid", method = RequestMethod.GET)
-    public String uid(HttpSession session){
-        UUID uid = (UUID)session.getAttribute("uid");
-        if (uid == null) {
-            uid = UUID.randomUUID();
-        }
-        session.setAttribute("uid", uid);
-        return session.getId();
+  @RequestMapping(value = "/uid", method = RequestMethod.GET)
+  public String uid(HttpSession session) {
+    UUID uid = (UUID) session.getAttribute("uid");
+    if (uid == null) {
+      uid = UUID.randomUUID();
     }
+    session.setAttribute("uid", uid);
+    return session.getId();
+  }
 }
