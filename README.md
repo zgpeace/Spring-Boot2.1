@@ -22,6 +22,7 @@
 | 12   | [第十二篇：SpringBoot综合应用DataSoure][012] |                         |
 | 13   | [第十三篇：SpringBoot综合应用多个DataSoure][013] |                         |
 | 14   | [第十四篇：SpringBoot的HikariCP][014]  |                         |
+| 15   | [第十五篇：SpringBoot连接池Druid][015]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -41,3 +42,4 @@
 [012]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demojdbccompose
 [013]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demomultidatasource
 [014]: https://blog.csdn.net/zgpeace/article/details/98719059
+[015]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbdruid
