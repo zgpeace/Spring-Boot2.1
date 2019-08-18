@@ -26,6 +26,7 @@
 | 16   | [第十六篇：SpringBoot通过JDBC访问数据库][016]  |                         |
 | 17   | [第十七篇：SpringBoot的事务Transaction][017]  |                         |
 | 18   | [第十八篇：SpringBoot的JDBC异常][018]  |                         |
+| 19   | [第十九篇：SpringBoot的常用注解][019]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -49,3 +50,4 @@
 [016]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbjdbc
 [017]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbtransaction
 [018]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodberrorcode
+[019]: https://blog.csdn.net/zgpeace/article/details/99704906
