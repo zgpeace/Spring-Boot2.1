@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class FooServiceImpl implements FooService {
   @Autowired
   private JdbcTemplate jdbcTemplate;
+  @Autowired
+  private FooService fooService;
 
   @Override
   @Transactional
@@ -26,5 +28,11 @@ public class FooServiceImpl implements FooService {
   @Override
   public void invokeInsertThenRollback() throws RollbackException {
     insertThenRollback();
+  }
+
+
+  @Override
+  public void invokeInsertThenSuperRollback() throws RollbackException {
+    fooService.insertThenRollback();
   }
 }

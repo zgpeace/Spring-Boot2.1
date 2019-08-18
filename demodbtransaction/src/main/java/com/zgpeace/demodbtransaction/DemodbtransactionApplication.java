@@ -44,6 +44,13 @@ public class DemodbtransactionApplication implements CommandLineRunner {
       log.info("BBB {}", jdbcTemplate.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
     }
 
+
+    try {
+      fooService.invokeInsertThenSuperRollback();
+    } catch (Exception e) {
+      log.info("BBB {}", jdbcTemplate.queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='BBB'", Long.class));
+    }
+
     try {
       fooService.invokeInsertThenRollback();
     } catch (Exception e) {

@@ -6,4 +6,6 @@ public interface FooService {
   void insertThenRollback() throws RollbackException;
 
   void invokeInsertThenRollback() throws RollbackException;
+
+  void invokeInsertThenSuperRollback() throws RollbackException;
 }
