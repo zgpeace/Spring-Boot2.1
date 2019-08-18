@@ -25,6 +25,7 @@
 | 15   | [第十五篇：SpringBoot连接池Druid][015]  |                         |
 | 16   | [第十六篇：SpringBoot通过JDBC访问数据库][016]  |                         |
 | 17   | [第十七篇：SpringBoot的事务Transaction][017]  |                         |
+| 18   | [第十八篇：SpringBoot的JDBC异常][018]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -47,3 +48,4 @@
 [015]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbdruid
 [016]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbjdbc
 [017]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbtransaction
+[018]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodberrorcode
