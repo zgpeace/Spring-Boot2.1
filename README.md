@@ -27,6 +27,7 @@
 | 17   | [第十七篇：SpringBoot的事务Transaction][017]  |                         |
 | 18   | [第十八篇：SpringBoot的JDBC异常][018]  |                         |
 | 19   | [第十九篇：SpringBoot的常用注解][019]  |                         |
+| 20   | [第廿篇：SpringBoot的复杂JPA以及源码解析][020]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -51,3 +52,4 @@
 [017]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbtransaction
 [018]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodberrorcode
 [019]: https://blog.csdn.net/zgpeace/article/details/99704906
+[020]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/demodbjpastarbucks
