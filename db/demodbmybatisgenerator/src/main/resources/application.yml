@@ -1,0 +1,7 @@
+
+mybatis:
+  mapper-locations: 'classpath*:/mapper/**/*.xml'
+  type-aliases-package: 'zgpeace.spring.mybatis.model'
+  type-handlers-package: 'zgpeace.spring.mybatis.handler'
+  configuration:
+    map-underscore-to-camel-case: true
