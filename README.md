@@ -28,6 +28,7 @@
 | 18   | [第十八篇：SpringBoot的JDBC异常][018]  |                         |
 | 19   | [第十九篇：SpringBoot的常用注解][019]  |                         |
 | 20   | [第廿篇：SpringBoot的复杂JPA以及源码解析][020]  |                         |
+| 21   | [第廿一篇：SpringBoot的Mybatis生成工具Generator][021]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -53,3 +54,4 @@
 [018]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/db/demodberrorcode
 [019]: https://blog.csdn.net/zgpeace/article/details/99704906
 [020]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/db/demodbjpastarbucks
+[021]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/db/demodbmybatisgenerator
