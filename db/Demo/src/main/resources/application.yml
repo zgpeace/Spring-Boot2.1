@@ -1,0 +1,10 @@
+
+mybatis:
+  type-handlers-package: zgpeace.spring.data.handler
+  configuration:
+    map-underscore-to-camel-case: true
+pagehelper:
+  offset-as-page-num: true
+  reasonable: true
+  page-size-zero: true
+  support-methods-arguments: true
