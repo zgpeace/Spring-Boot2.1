@@ -1,0 +1,5 @@
+
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb://starbucks:starbucks@localhost:27017/starbucks'
