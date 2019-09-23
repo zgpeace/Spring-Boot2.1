@@ -32,6 +32,7 @@
 | 22   | [第廿二篇：SpringBoot的Mybatis分页插件PageHelper][022]  |                         |
 | 23   | [第廿三篇：SpringBoot之Docker安装MongoDB][023]  |                         |
 | 24   | [第廿四篇：SpringBoot之MongoDB][024]  |                         |
+| 25   | [第廿五篇：SpringBoot访问Docker中的Redis][025]  |                         |
 
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
@@ -61,3 +62,4 @@
 [022]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/db/DemoDBMybatisPageHelper
 [023]: https://blog.csdn.net/zgpeace/article/details/100799655
 [024]: https://blog.csdn.net/zgpeace/article/details/100875252
+[025]: https://github.com/zgpeace/Spring-Boot2.1/tree/master/Nosql/JedisDemo
