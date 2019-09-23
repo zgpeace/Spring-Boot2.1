@@ -1,0 +1,14 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+redis:
+  host: localhost
+  maxTotal: 5
+  maxIdle: 5
+  testOnBorrow: true

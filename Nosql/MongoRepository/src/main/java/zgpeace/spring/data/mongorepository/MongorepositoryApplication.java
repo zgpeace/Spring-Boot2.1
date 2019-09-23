@@ -54,7 +54,7 @@ public class MongorepositoryApplication implements CommandLineRunner {
     coffeeRepository.findByName("latte")
         .forEach(c -> log.info("Coffee {}", c));
 
-    //coffeeRepository.deleteAll();
+    coffeeRepository.deleteAll();
   }
 
   public static void main(String[] args) {
