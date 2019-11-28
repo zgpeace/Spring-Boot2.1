@@ -1,7 +1,7 @@
-# Spring-Boot2.1 学习轨迹
+# Spring-Boot2.1 ~ Spring-Boot 2.2.1 学习轨迹
 
 本系列文章环境信息:
-* Spring Boot: 2.1 
+* Spring Boot: 2.1 ~ Spring-Boot 2.2.1
 * JDK: 1.8, 
 * IDE: IntelliJ IDEA
 
