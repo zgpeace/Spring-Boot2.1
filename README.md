@@ -41,7 +41,7 @@
 | 31   | [第三十一篇：SpringBoot Reactor响应式编程实战一][031]  |                         |
 | 32   | [第三十二篇：Redis Docker入门][032]  |                         |
 | 33   | [第三十三篇：SpringBoot Reactor响应式编程实战二 Redis Lettuce][033]  |                         |
-
+| 34   | [第三十四篇：Spring Boot导出war包部署到外部Tomcat][034]  |                         |
 
 如果文章对您有所帮助，帮忙顺手STAR.<br>
 赠人玫瑰🌹，手留余香。谢谢！
@@ -79,4 +79,5 @@
 [031]: https://blog.csdn.net/zgpeace/article/details/103321024
 [032]: https://blog.csdn.net/zgpeace/article/details/101599335
 [033]: https://blog.csdn.net/zgpeace/article/details/103363725
+[034]: https://blog.csdn.net/zgpeace/article/details/104547552
 
